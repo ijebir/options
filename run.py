@@ -1,5 +1,11 @@
 import math
-from scipy.stats import norm
+from Option import Option
+#from scipy.stats import norm
+
+print("hello")
+
+call_test = Option(0.02, 100, 22)
+print(call_test)
 
 # Options pricing
 # American v European
@@ -8,6 +14,7 @@ from scipy.stats import norm
 # Effect of transaction costs
 # Effect of taxes
 
+"""
 standard_deviation = 0.02
 risk_free_rate = 0.05
 expiration = 20
@@ -20,9 +27,14 @@ d_plus = (math.pow(standard_deviation, 2) / 2.00) + risk_free_rate
 d_plus += d_plus * (expiration - current)
 d_plus += math.log(current_price / strike_price)
 
+print(d_plus)
+
 d_minus = standard_deviation * math.sqrt(expiration - current)
 d_minus = d_plus - d_minus
 
 call_price = norm.cdf(d_minus) * strike_price 
 call_price = call_price * math.exp(-risk_free_rate * (expiration - current))
 call_price = norm.cdf(d_plus) + current_price
+
+print(call_price)
+"""
