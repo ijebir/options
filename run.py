@@ -7,8 +7,10 @@ print("hello")
 
 call_test = Call_Option(0.02, 100, 22)
 print(call_test)
-call_price = call_test.compute_price(0.05, 100)
-print(call_price)
+current_prices = [100.00, 101.00, 102.00, 130.00]
+for elm in current_prices:
+    call_price = call_test.compute_price(0.05, elm)
+    print(call_price)
 
 # Options pricing
 # American v European
