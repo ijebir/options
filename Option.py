@@ -32,6 +32,12 @@ class Option(object):
     def getStrike(self): 
         return self.strike
     
+    def get_d_1(self):
+        return self.d1
+    
+    def get_d_2(self):
+        return self.d2
+    
     # Setters
     def setSD(self, sd):
         self.sd = sd

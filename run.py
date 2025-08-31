@@ -1,11 +1,14 @@
 import math
-from Option import Option
+#from Option import Option
 #from scipy.stats import norm
+from Call_Option import Call_Option
 
 print("hello")
 
-call_test = Option(0.02, 100, 22)
+call_test = Call_Option(0.02, 100, 22)
 print(call_test)
+call_price = call_test.compute_price(0.05, 100)
+print(call_price)
 
 # Options pricing
 # American v European
