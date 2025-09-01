@@ -1,8 +1,10 @@
 import math
+from scipy.stats import norm
 
 class Option(object):
 
-    def __init__(self, sd, strike, time_to_exp):
+    def __init__(self, sd, strike, time_to_exp, type="call"):
+        self.type = type
         self.sd = sd
         self.strike = strike
         self.variance = math.pow(self.sd, 2)
@@ -57,3 +59,18 @@ class Option(object):
         ret_str += "\tVariance: " + str(self.variance) + "\n"
         return ret_str
         #return "Option with strike: " + str(self.strike) + ", sd: " + str(self.sd)
+
+    def compute_price(self, risk_free, current_stock_price, kind="black_scholes"):
+        if kind == "black_scholes":
+            self.compute_d_1(risk_free, current_stock_price)
+            self.compute_d_2(risk_free, current_stock_price)
+            if self.type == "call":
+                price = math.exp(-risk_free * self.time_to_exp)
+                price *= norm.cdf(self.get_d_2())
+                price *= -1.0 * self.getStrike()
+                price += current_stock_price * norm.cdf(self.get_d_1())
+                return price
+            else:
+                raise ValueError("Unkown option type: " + str(self.type))
+        else:
+            raise ValueError("Unknown kind: " + str(kind))
