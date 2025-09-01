@@ -22,7 +22,7 @@ class Option(object):
         self.d2 = risk_free - self.d2
         self.d2 *= self.time_to_exp
         self.d2 += math.log(current_stock_price / self.strike)
-        self.d1 /= (self.sd * math.sqrt(self.time_to_exp))
+        self.d2 /= (self.sd * math.sqrt(self.time_to_exp))
 
     # Getters
     def getSD(self): 
@@ -33,6 +33,9 @@ class Option(object):
     
     def getStrike(self): 
         return self.strike
+    
+    def get_time_to_exp(self):
+        return self.time_to_exp
     
     def get_d_1(self):
         return self.d1
@@ -74,3 +77,11 @@ class Option(object):
                 raise ValueError("Unkown option type: " + str(self.type))
         else:
             raise ValueError("Unknown kind: " + str(kind))
+        
+    def compute_greeks(self):
+        if self.type == "call":
+            self.delta = norm.cdf(self.get_d_1())
+            #self.gamma = 
+            #self.vega = math.pow(self.get_d_1(), 2) / 2.0
+            #self.vega = math.exp(-1.0 * self.vega)
+            #self.vega = self.vega * math.sqrt(self.get_time_to_exp()) * 

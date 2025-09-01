@@ -1,5 +1,5 @@
 import math
-from src.Option import Option
+from Option import Option
 #from scipy.stats import norm
 #from Call_Option import Call_Option
 
