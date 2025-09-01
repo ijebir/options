@@ -1,11 +1,11 @@
 import math
-from Option import Option
+from src.Option import Option
 #from scipy.stats import norm
 #from Call_Option import Call_Option
 
 print("hello")
 
-call_test = Option(0.02, 100, 0.1)
+call_test = Option(0.1, 100, 0.1)
 price = call_test.compute_price(0.05, 98, kind="black_scholes")
 print("Option price: " + str(price))
 
