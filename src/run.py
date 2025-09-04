@@ -4,6 +4,7 @@ from Option import Option
 #from Call_Option import Call_Option
 
 print("hello")
+print("hello")
 
 call_test = Option(0.1, 100, 0.1)
 price = call_test.compute_price(0.05, 98, kind="black_scholes")
