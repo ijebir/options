@@ -8,7 +8,7 @@ print("hello")
 print("hello")
 
 # Generate a list of pices from 0.0 to 150.00
-final_price = np.arange(0.0, 150.00, 0.1)
+final_price = np.arange(0.1, 20.00, 0.1)
 print(final_price[0])
 print(final_price[1])
 print(final_price[2])
@@ -23,9 +23,11 @@ risk_free = 0.05
 sigma = 0.2
 
 call_test = Option(sigma, strike_price, T)
-price = call_test.compute_price(risk_free, current_price, kind="black_scholes")
-print("Option price: " + str(price))
-
+#price = call_test.compute_price(risk_free, current_price, kind="black_scholes")
+#print("Option price: " + str(price))
+for item in final_price:
+    option_price = call_test.compute_price(risk_free, item, kind="black_scholes")
+    print("For stock price " + str(item) + ", Call is: " + str(option_price))
 """
 call_test = Call_Option(0.02, 100, 22)
 print(call_test)
