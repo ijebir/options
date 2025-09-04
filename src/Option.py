@@ -11,14 +11,14 @@ class Option(object):
         self.time_to_exp = time_to_exp
 
     def compute_d_1(self, risk_free, current_stock_price):
-        self.d1 = math.pow(self.variance, 2) / 2
+        self.d1 = self.variance / 2
         self.d1 += risk_free
         self.d1 *= self.time_to_exp
         self.d1 += math.log(current_stock_price / self.strike)
         self.d1 /= (self.sd * math.sqrt(self.time_to_exp))
 
     def compute_d_2(self, risk_free, current_stock_price):
-        self.d2 = math.pow(self.variance, 2) / 2
+        self.d2 = self.variance / 2
         self.d2 = risk_free - self.d2
         self.d2 *= self.time_to_exp
         self.d2 += math.log(current_stock_price / self.strike)

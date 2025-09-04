@@ -1,17 +1,21 @@
 import math
 from Option import Option
+import numpy as np
 #from scipy.stats import norm
 #from Call_Option import Call_Option
 
 print("hello")
 print("hello")
 
-#final_price = range(0.0, 150.00, 0.1)
-#print(final_price)
+# Generate a list of pices from 0.0 to 150.00
+final_price = np.arange(0.0, 150.00, 0.1)
+print(final_price[0])
+print(final_price[1])
+print(final_price[2])
 
 current_price = 100.00
 strike_price = 100.00
-# Time to maturity (time to expiration) is expressed in days
+# Time to maturity (time to expiration) is expressed in *years*
 T = 1
 # Proxy for buying 
 risk_free = 0.05
