@@ -6,8 +6,20 @@ from Option import Option
 print("hello")
 print("hello")
 
-call_test = Option(0.1, 100, 0.1)
-price = call_test.compute_price(0.05, 98, kind="black_scholes")
+#final_price = range(0.0, 150.00, 0.1)
+#print(final_price)
+
+current_price = 100.00
+strike_price = 100.00
+# Time to maturity (time to expiration) is expressed in days
+T = 1
+# Proxy for buying 
+risk_free = 0.05
+# Standard Deviation of Historical Daily Returns
+sigma = 0.2
+
+call_test = Option(sigma, strike_price, T)
+price = call_test.compute_price(risk_free, current_price, kind="black_scholes")
 print("Option price: " + str(price))
 
 """
