@@ -1,6 +1,7 @@
 import math
 from Option import Option
 import numpy as np
+import matplotlib.pyplot as plt
 #from scipy.stats import norm
 #from Call_Option import Call_Option
 
