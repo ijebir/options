@@ -23,12 +23,23 @@ risk_free = 0.05
 # Standard Deviation of Historical Daily Returns
 sigma = 0.2
 
+option_prices = []
+
 call_test = Option(sigma, strike_price, T)
 #price = call_test.compute_price(risk_free, current_price, kind="black_scholes")
 #print("Option price: " + str(price))
 for item in final_price:
     option_price = call_test.compute_price(risk_free, item, kind="black_scholes")
+    option_prices.append(option_price)
     print("For stock price " + str(item) + ", Call is: " + str(option_price))
+
+fig, ax = plt.subplots()
+ax.plot(final_price, option_prices)
+ax.set(xlabel='Stock Price', ylabel='Option Price',
+       title='Option Price with respect to Price')
+ax.grid()
+plt.show()
+
 """
 call_test = Call_Option(0.02, 100, 22)
 print(call_test)
