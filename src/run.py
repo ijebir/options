@@ -2,12 +2,18 @@ import math
 from Option import Option
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 #from scipy.stats import norm
 #from Call_Option import Call_Option
 
 print("hello")
-print("hello")
 
+df = pd.read_csv("./data/AAPL.csv")
+print(df)
+# Compute daily returns as (new / old) - 1
+# extract standard deviation and variance
+
+"""
 # Generate a list of pices from 0.0 to 150.00
 final_price = np.arange(0.1, 20.00, 0.1)
 print(final_price[0])
@@ -33,12 +39,14 @@ for item in final_price:
     option_prices.append(option_price)
     print("For stock price " + str(item) + ", Call is: " + str(option_price))
 
-fig, ax = plt.subplots()
+ax = plt.subplots()
 ax.plot(final_price, option_prices)
 ax.set(xlabel='Stock Price', ylabel='Option Price',
        title='Option Price with respect to Price')
 ax.grid()
 plt.show()
+
+"""
 
 """
 call_test = Call_Option(0.02, 100, 22)
