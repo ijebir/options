@@ -11,13 +11,17 @@ print("hello")
 
 aapl = Stock("AAPL")
 print(aapl)
+high_prices = aapl.get_high_prices()
+low_prices = aapl.get_low_prices()
+print(high_prices)
+print(low_prices)
 
 
 #print(df)
 #print("Standard deviation of returns: " + str(std_s))
 #print("Variance: " + str(var_s))
 
-"""
+
 # Generate a list of pices from 0.0 to 150.00
 final_price = np.arange(0.1, 20.00, 0.1)
 print(final_price[0])
@@ -43,14 +47,14 @@ for item in final_price:
     option_prices.append(option_price)
     print("For stock price " + str(item) + ", Call is: " + str(option_price))
 
-ax = plt.subplots()
+fx, ax = plt.subplots()
 ax.plot(final_price, option_prices)
 ax.set(xlabel='Stock Price', ylabel='Option Price',
        title='Option Price with respect to Price')
 ax.grid()
 plt.show()
 
-"""
+
 
 """
 call_test = Call_Option(0.02, 100, 22)

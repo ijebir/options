@@ -20,6 +20,12 @@ class Stock(object):
     def get_variance(self):
         return self.var_s
     
+    def get_high_prices(self):
+        return self.historical_data["High"]
+
+    def get_low_prices(self):
+        return self.historical_data["Low"]
+    
     # Setter
     def add_point(self, date, value):
         pass
