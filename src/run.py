@@ -1,23 +1,21 @@
 import math
 from Option import Option
+from Stock import Stock
 import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
+
 #from scipy.stats import norm
 #from Call_Option import Call_Option
 
 print("hello")
 
-df = pd.read_csv("./data/AAPL.csv")
-# no need to reverse order, data is already ordered by dt DESC
-# Compute daily returns as (new / old) - 1
-df["Return"] = (df["Close"] / df["Close"].shift(-1)) - 1.0
-# extract standard deviation and variance
-std_s = df["Return"].std()
-var_s = std_s * std_s
-print(df)
-print("Standard deviation of returns: " + str(std_s))
-print("Variance: " + str(var_s))
+aapl = Stock("AAPL")
+print(aapl)
+
+
+#print(df)
+#print("Standard deviation of returns: " + str(std_s))
+#print("Variance: " + str(var_s))
 
 """
 # Generate a list of pices from 0.0 to 150.00

@@ -4,20 +4,24 @@ class Stock(object):
 
     def __init__(self, ticker):
         self.ticker = ticker
-        # Should the historical data be set as numpy array or as pandas dataFrame
-        # We know that pricing is associated with dates, and we are interested in only close or adj. close
-        # We need to reference the last date for sure, but we need 251 trading days back
+        self.historical_data = pd.read_csv("./data/" + str(ticker) + ".csv")
+        # no need to reverse order, data is already ordered by dt DESC
+        # Compute daily returns as (new / old) - 1
+        self.historical_data["Return"] = (self.historical_data["Close"] / self.historical_data["Close"].shift(-1)) - 1.0
+        # extract standard deviation and variance
+        self.std_s = self.historical_data["Return"].std()
+        self.var_s = self.std_s ** 2
 
     # Getters
-    def get_sigma():
-        return self.sigma
+    def get_sigma(self):
+        return self.std_s
     
-    def get_variance():
-        return self.variance
+    def get_variance(self):
+        return self.var_s
     
     # Setter
     def add_point(self, date, value):
         pass
 
     def __str__(self):
-        return "Stock: " + str(self.ticker)
+        return "Stock: " + str(self.ticker) + " ("
