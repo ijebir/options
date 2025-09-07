@@ -11,6 +11,7 @@ class Stock(object):
         # extract standard deviation and variance
         self.std_s = self.historical_data["Return"].std()
         self.var_s = self.std_s ** 2
+        # extract 52-week range
 
     # Getters
     def get_sigma(self):
@@ -24,4 +25,12 @@ class Stock(object):
         pass
 
     def __str__(self):
-        return "Stock: " + str(self.ticker) + " ("
+        data_length = len(self.historical_data)
+        str_ret = "============== STOCK OBJECT ================="
+        str_ret += "\nTicker: " + str(self.ticker)
+        str_ret += "\nDate range: " + str(self.historical_data.loc[0]["Date"]) + " to " + str(self.historical_data.loc[data_length-1]["Date"])
+        str_ret += " (" + str(data_length) + " trading days)"
+        str_ret += "\nStandard Deviation: " + str(self.get_sigma())
+        str_ret += "\nVariance: " + str(self.get_variance())
+        str_ret += "\n============ END OF STOCK OBJECT ============"
+        return str_ret
