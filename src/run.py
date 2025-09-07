@@ -9,9 +9,15 @@ import pandas as pd
 print("hello")
 
 df = pd.read_csv("./data/AAPL.csv")
-print(df)
+# no need to reverse order, data is already ordered by dt DESC
 # Compute daily returns as (new / old) - 1
+df["Return"] = (df["Close"] / df["Close"].shift(-1)) - 1.0
 # extract standard deviation and variance
+std_s = df["Return"].std()
+var_s = std_s * std_s
+print(df)
+print("Standard deviation of returns: " + str(std_s))
+print("Variance: " + str(var_s))
 
 """
 # Generate a list of pices from 0.0 to 150.00
