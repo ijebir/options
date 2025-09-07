@@ -26,6 +26,9 @@ class Stock(object):
     def get_low_prices(self):
         return self.historical_data["Low"]
     
+    def get_dates(self):
+        return self.historical_data["Date"]
+    
     # Setter
     def add_point(self, date, value):
         pass

@@ -11,17 +11,53 @@ print("hello")
 
 aapl = Stock("AAPL")
 print(aapl)
+dates = aapl.get_dates()
 high_prices = aapl.get_high_prices()
 low_prices = aapl.get_low_prices()
-print(high_prices)
-print(low_prices)
+# reverse data order to obtain times series ASC
+dates = dates.iloc[::-1]
+high_prices = high_prices.iloc[::-1]
+low_prices = low_prices.iloc[::-1]
+print(type(dates))
+#print(high_prices)
+#print(low_prices)
 
+fig, ax = plt.subplots()
+ax.plot(dates, high_prices)
+#fig.yscale('log')
+ax.plot(dates, low_prices)
+ax.set(
+    xlabel='Date', 
+    ylabel='Stock High',
+    title='Historical Stock Price'
+)
+# Only show 12 ticks on the x-axis
+ax.xaxis.set_major_locator(plt.MaxNLocator(12))
+# Add filler between high and low
+ax.fill_between(
+    dates,
+    high_prices,
+    low_prices,
+    color="#929292",
+)
+
+ax.grid()
+plt.show()
+
+"""
+axes.plot(
+    data.index,
+    data["mean"],
+    color="black",
+    zorder=10,
+)
+"""
 
 #print(df)
 #print("Standard deviation of returns: " + str(std_s))
 #print("Variance: " + str(var_s))
 
-
+"""
 # Generate a list of pices from 0.0 to 150.00
 final_price = np.arange(0.1, 20.00, 0.1)
 print(final_price[0])
@@ -54,7 +90,7 @@ ax.set(xlabel='Stock Price', ylabel='Option Price',
 ax.grid()
 plt.show()
 
-
+"""
 
 """
 call_test = Call_Option(0.02, 100, 22)
