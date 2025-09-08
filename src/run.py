@@ -3,6 +3,7 @@ from Option import Option
 from Stock import Stock
 import numpy as np
 import matplotlib.pyplot as plt
+import tkinter
 
 #from scipy.stats import norm
 #from Call_Option import Call_Option
