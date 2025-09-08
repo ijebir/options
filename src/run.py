@@ -3,12 +3,23 @@ from Option import Option
 from Stock import Stock
 import numpy as np
 import matplotlib.pyplot as plt
+import tkinter as tk
+
+# playing around with GUI
+r = tk.Tk()
+r.title('Options Pricing Tool')
+#w = r.Label(r, text='Hello World!')
+button = tk.Button(r, text='Calulate', width=25, command=r.destroy)
+button.pack()
+#w.pack()
+r.mainloop()
 
 #from scipy.stats import norm
 #from Call_Option import Call_Option
 
 # Consider making the Option a subclass of Stock
 
+"""
 print("hello")
 
 aapl = Stock("AAPL")
@@ -45,6 +56,7 @@ ax.fill_between(
 
 ax.grid()
 plt.show()
+"""
 
 """
 axes.plot(
