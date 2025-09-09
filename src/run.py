@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tkinter as tk
 
+risk_free = 0.05
 
 aapl = Stock("AAPL")
 strike = 100.00
@@ -15,7 +16,7 @@ print(aapl)
 aapl_call = Option(aapl, strike, time_to_exp)
 print(aapl_call)
 
-aapl_call_PnL = Option_PnL(aapl_call)
+aapl_call_PnL = Option_PnL(aapl_call, risk_free)
 
 #final_prices = aapl_call.gen_ST_prices()
 #print(final_prices)
