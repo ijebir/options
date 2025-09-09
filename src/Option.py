@@ -67,9 +67,10 @@ class Option(object):
 
     # Charting functions
     def gen_ST_prices(self):
-        # We would like the strike price to be in the middle
-        # We would like for the price to range +/- 3 sigma
-        # We need 200 points total
+        """
+        Returns a numpy 2d array containing list of final stock prices
+        Strike is in the middle with borders around +/- 3 sigma, with 200 points
+        """
         max_price_up = self.getStrike() * (1.0 + (3.0 * self.getSD()))
         step_up = (max_price_up - self.getStrike()) / 100.00
         up_prices = np.arange(self.getStrike(), max_price_up, step_up)
