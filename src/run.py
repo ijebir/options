@@ -1,6 +1,7 @@
 import math
 from Option import Option
 from Stock import Stock
+from Option_PnL import Option_PnL
 import numpy as np
 import matplotlib.pyplot as plt
 import tkinter as tk
@@ -14,8 +15,10 @@ print(aapl)
 aapl_call = Option(aapl, strike, time_to_exp)
 print(aapl_call)
 
-final_prices = aapl_call.gen_ST_prices()
-print(final_prices)
+aapl_call_PnL = Option_PnL(aapl_call)
+
+#final_prices = aapl_call.gen_ST_prices()
+#print(final_prices)
 
 """
 # playing around with GUI

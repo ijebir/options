@@ -1,6 +1,5 @@
 import math
 from scipy.stats import norm
-import numpy as np
 
 class Option(object):
 
@@ -65,12 +64,13 @@ class Option(object):
     def setStrike(self, k):
         self.strike = k
 
+    """
     # Charting functions
     def gen_ST_prices(self):
-        """
+        
         Returns a numpy 2d array containing list of final stock prices
         Strike is in the middle with borders around +/- 3 sigma, with 200 points
-        """
+        
         max_price_up = self.getStrike() * (1.0 + (3.0 * self.getSD()))
         step_up = (max_price_up - self.getStrike()) / 100.00
         up_prices = np.arange(self.getStrike(), max_price_up, step_up)
@@ -78,6 +78,7 @@ class Option(object):
         step_down = (self.getStrike() - low_price_down) / 100.00
         low_prices = np.arange(low_price_down, self.getStrike(), step_down)
         return np.concatenate([low_prices, up_prices])
+    """
 
     def __str__(self):
         ret_str = "Option with:\n"
