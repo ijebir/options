@@ -64,22 +64,6 @@ class Option(object):
     def setStrike(self, k):
         self.strike = k
 
-    """
-    # Charting functions
-    def gen_ST_prices(self):
-        
-        Returns a numpy 2d array containing list of final stock prices
-        Strike is in the middle with borders around +/- 3 sigma, with 200 points
-        
-        max_price_up = self.getStrike() * (1.0 + (3.0 * self.getSD()))
-        step_up = (max_price_up - self.getStrike()) / 100.00
-        up_prices = np.arange(self.getStrike(), max_price_up, step_up)
-        low_price_down = self.getStrike() * (1.0 - (3.0 * self.getSD()))
-        step_down = (self.getStrike() - low_price_down) / 100.00
-        low_prices = np.arange(low_price_down, self.getStrike(), step_down)
-        return np.concatenate([low_prices, up_prices])
-    """
-
     def __str__(self):
         ret_str = "Option with:\n"
         ret_str += "\tStrike: " + str(self.strike) + "\n"
@@ -103,10 +87,26 @@ class Option(object):
         else:
             raise ValueError("Unknown kind: " + str(kind))
         
-    def compute_greeks(self):
-        if self.type == "call":
-            self.delta = norm.cdf(self.get_d_1())
-            #self.gamma = 
-            #self.vega = math.pow(self.get_d_1(), 2) / 2.0
-            #self.vega = math.exp(-1.0 * self.vega)
-            #self.vega = self.vega * math.sqrt(self.get_time_to_exp()) * 
+    @staticmethod
+    def compute_delta(option):
+        if option.type == "call":
+            return norm.cdf(option.get_d_1())
+
+    @staticmethod
+    def compute_vega(option, current_price):
+        if option.type == "call":
+            vega = math.pow(option.get_d_1(), 2) / 2.0
+            vega = math.exp(-1.0 * vega)
+            vega *= math.sqrt(option.get_time_to_exp())
+            vega *= math.sqrt(current_price)
+            vega = vega / math.sqrt(2.0 * math.pi)
+            return vega
+        
+    @staticmethod
+    def compute_gamma(option, current_price):
+        gamma = math.sqrt(option.get_time_to_exp())
+        gamma *= option.getSD() * current_price
+        gamma *= math.sqrt(2.0 * math.pi)
+        gamma = 1.0 / gamma
+        gamma *= math.exp(-1.0 * ( math.pow(option.get_d_1(), 2.0) / 2.0 ) )
+        return gamma

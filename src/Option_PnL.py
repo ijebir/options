@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from Option import Option
 
 class Option_PnL(object):
 
@@ -17,23 +18,32 @@ class Option_PnL(object):
         #print(option_prices)
         #print(all_prices)
         self.df = pd.DataFrame({
-            "final_stock_prices": all_prices,
-            "option_prices": option_prices
+            "final_stock_prices": all_prices
         })
         print(self.df)
         # Compute options prices on the basis of prices
         self.compute_option_prices(risk_free)
         # Compute options greeks on the basis of prices
-        self.compute_option_greeks()
+        #self.compute_option_greeks()
         # Generate charts on the basis of prices
 
     def compute_option_prices(self, risk_free):
         option_prices = np.zeros(shape=(len(self.df["final_stock_prices"])))
+        delta_values = np.zeros(shape=(len(self.df["final_stock_prices"])))
+        vega_values = np.zeros(shape=(len(self.df["final_stock_prices"])))
+        gamma_values = np.zeros(shape=(len(self.df["final_stock_prices"])))
         for idx, *row in self.df.itertuples():
             final_stock_p = row[0]
             op_price = self.option.compute_price(risk_free, final_stock_p)
+            delta_val = Option.compute_delta(self.option)
+            vega_val = Option.compute_vega(self.option, final_stock_p)
+            gamma_val = Option.compute_gamma(self.option, final_stock_p)
             option_prices[idx] = op_price
+            delta_values[idx] = delta_val
+            vega_values[idx] = vega_val
+            gamma_values[idx] = gamma_val
         self.df["option_prices"] = option_prices
-
-    def compute_option_greeks(self):
-        pass
+        self.df["delta_values"] = delta_values
+        self.df["vega_values"] = vega_values
+        self.df["gamma_values"] = gamma_values
+        print(self.df)
