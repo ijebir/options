@@ -5,6 +5,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tkinter as tk
 
+
+aapl = Stock("AAPL")
+strike = 100.00
+time_to_exp = 1.0
+print(aapl)
+
+aapl_call = Option(aapl, strike, time_to_exp)
+print(aapl_call)
+
+final_prices = aapl_call.gen_ST_prices()
+print(final_prices)
+
+"""
 # playing around with GUI
 r = tk.Tk()
 r.title('Options Pricing Tool')
@@ -13,6 +26,7 @@ button = tk.Button(r, text='Calulate', width=25, command=r.destroy)
 button.pack()
 #w.pack()
 r.mainloop()
+"""
 
 #from scipy.stats import norm
 #from Call_Option import Call_Option
