@@ -4,69 +4,150 @@ from Stock import Stock
 from Option_PnL import Option_PnL
 import numpy as np
 import matplotlib.pyplot as plt
-import tkinter as tk
-from tkinter import ttk
-from tkinter import *
 
 OPTIONS = [
     "Apple Inc. (AAPL)",
     "Microsoft Inc (MSFT)"
 ]
 
-window = tk.Tk()
+DEFAULT_RISK_FREE = 0.05
+DEFAULT_TTE = 1.0
+DEFAULT_OPTION_TYPE = "call"
+DEFAULT_STOCK = "AAPL"
 
-# set window resolution
-window.geometry('1438x900')
-window.title('Options Pricing Tool')
+print("\nOption Pricing Tool\n")
+
+print("The option type is set to: " + str(DEFAULT_OPTION_TYPE))
+default_option = input("Press y to proceed, any other key to change the option type: ")
+if(default_option == "y"):
+    DEFAULT_OPTION_TYPE = "put"
+    print("The option type has been updated to: " + str(DEFAULT_OPTION_TYPE))
+
+print("\nThe risk free rate is set as: 5.00%")
+default_risk_free = input("Press y to proceed, any key to change the risk free rate: ")
+if(default_risk_free != "y"):
+    print("\tUpdating the risk free rate")
+    print("\tEnter 0.04 for 4.00%")
+    DEFAULT_RISK_FREE = input("\tRisk Free Rate: ")
+print("\nThe option expiration is set to: " + str(DEFAULT_TTE) + " year")
+default_expiration = input("Press y to proceed, any other key to update option expiration")
+if(default_expiration != "y"):
+    print("\tUpdating the option expiration")
+    print("\tEnter on year as 1.0")
+    DEFAULT_TTE = input("Option expiration: ")
+print("\nThe stock ticker is set to : " + DEFAULT_STOCK)
+
+aapl = Stock(DEFAULT_STOCK)
+print(aapl)
+
+
+#select_stock = tk.Label(window, text="Select Stock:")
+#select_stock.pack()
+
+#add_label("Select Stock")
+#gender = ttk.Combobox(window, values=OPTIONS, state="readonly")
+#gender.pack()
+
+#a = add_label_and_val("Risk Free Rate", "5.00%")
+#a.pack()
+#add_label_and_val("Standard Deviation", "5.00%")
 
 #label = tk.Frame(window, bg='wheat')  # Bg to show label size on window
 #label.pack(padx=100, pady=30)
-tk.Label(window, text="Step 1: Set Parameters", font=("Helvetica", 20, "bold")).grid(row=0, column=0, padx=5, pady=5, sticky=tk.E)
+#tk.Label(window, text="Step 1: Set Parameters", font=("Helvetica", 20, "bold")).grid(row=0, column=0, padx=5, pady=5, sticky=tk.E, columnspan=3)
 
-tk.Label(window, text="Select Stock:",).grid(row=1, column=1, padx=5, pady=5, sticky=tk.E)
-gender = ttk.Combobox(window, values=OPTIONS, state="readonly")
-gender.grid(row=1, column=2, padx=5, pady=5)
+#tk.Label(window, text="Select Stock:",).grid(row=1, column=1, padx=5, pady=5, sticky=tk.E)
+#gender = ttk.Combobox(window, values=OPTIONS, state="readonly")
+#gender.grid(row=1, column=2, padx=5, pady=5)
 
-tk.Label(window, text="Risk Free Rate:",).grid(row=1, column=3, padx=5, pady=5, sticky=tk.E)
-default_risk_free = StringVar(window, value='5.00%')
-name = ttk.Entry(window, textvariable=default_risk_free)
-name.grid(row=1, column=4, padx=5, pady=5, ipadx=5)
+#tk.Label(window, text="Risk Free Rate:",).grid(row=1, column=3, padx=5, pady=5, sticky=tk.E)
+#default_risk_free = StringVar(window, value='5.00%')
+#name = ttk.Entry(window, textvariable=default_risk_free)
+#name.grid(row=1, column=4, padx=5, pady=5, ipadx=5)
 
-tk.Label(window, text="Option Type:",).grid(row=2, column=1, padx=5, pady=5, sticky=tk.E)
-optionTypeView = ttk.Combobox(window, values=["Call", "Put"], state="readonly")
-optionTypeView.grid(row=2, column=2, padx=5, pady=5)
+#tk.Label(window, text="Option Type:",).grid(row=2, column=1, padx=5, pady=5, sticky=tk.E)
+#optionTypeView = ttk.Combobox(window, values=["Call", "Put"], state="readonly")
+#optionTypeView.grid(row=2, column=2, padx=5, pady=5)
 
-tk.Label(window, text="Time to expiration:",).grid(row=2, column=3, padx=5, pady=5, sticky=tk.E)
-default_exp = StringVar(window, value='1.00')
-tte = ttk.Entry(window, textvariable=default_exp)
-tte.grid(row=2, column=4, padx=5, pady=5, ipadx=5)
+#tk.Label(window, text="Time to expiration:",).grid(row=2, column=3, padx=5, pady=5, sticky=tk.E)
+#default_exp = StringVar(window, value='1.00')
+#tte = ttk.Entry(window, textvariable=default_exp)
+#tte.grid(row=2, column=4, padx=5, pady=5, ipadx=5)
 
-submit = ttk.Button(window, text="Calculate")
-submit.grid(row=3, column=4, padx=5, pady=5, sticky=tk.E)
+#submit = ttk.Button(window, text="Calculate")
+#submit.grid(row=3, column=4, padx=5, pady=5, sticky=tk.E)
 
-tk.Label(window, text="Step 2: Stock Data Calc", font=("Helvetica", 20, "bold")).grid(row=4, column=0, padx=5, pady=5, sticky=tk.E)
-tk.Label(window, text="Standard Deviation:",).grid(row=5, column=1, padx=5, pady=5, sticky=tk.E)
-tk.Label(window, text="2.4%",).grid(row=5, column=2, padx=5, pady=5, sticky=tk.E)
-tk.Label(window, text="Variance:",).grid(row=6, column=1, padx=5, pady=5, sticky=tk.E)
-tk.Label(window, text="2.4%",).grid(row=6, column=2, padx=5, pady=5, sticky=tk.E)
+#tk.Label(window, text="Risk Free Rate:",).grid(row=0, column=0, padx=5, pady=5, sticky=tk.E)
+#default_risk_free = StringVar(window, value='5.00%')
+#name = ttk.Entry(window, textvariable=default_risk_free)
+#name.grid(row=0, column=1, padx=5, pady=5, ipadx=5)
+
+#tk.Label(window, text="Option Price:",).grid(row=0, column=2, padx=5, pady=5, sticky=tk.E)
+#option_price_value = StringVar(window, value='5.00%')
+#name_option_value = ttk.Entry(window, textvariable=option_price_value)
+#name_option_value.grid(row=0, column=3, padx=5, pady=5, ipadx=5)
+
+#tk.Label(window, text="D1 Value:",).grid(row=1, column=2, padx=5, pady=5, sticky=tk.E)
+#d1_value = StringVar(window, value='5.00%')
+#name_d1_value = ttk.Entry(window, textvariable=d1_value)
+#name_d1_value.grid(row=1, column=3, padx=5, pady=5, ipadx=5)
+
+#tk.Label(window, text="D2 Value:",).grid(row=2, column=2, padx=5, pady=5, sticky=tk.E)
+#d2_value = StringVar(window, value='5.00%')
+#name_d2_value = ttk.Entry(window, textvariable=d2_value)
+#name_d2_value.grid(row=2, column=3, padx=5, pady=5, ipadx=5)
+
+#tk.Label(window, text="Vega:",).grid(row=0, column=4, padx=5, pady=5, sticky=tk.E)
+#vega_value = StringVar(window, value='5.00%')
+#name_vega_value = ttk.Entry(window, textvariable=vega_value)
+#name_vega_value.grid(row=0, column=5, padx=5, pady=5, ipadx=5)
+
+#image_1 = tk.PhotoImage(file="./img/file_example_PNG_500kB.png").subsample(3, 3)
+#tk.Label(window, image=image_1, relief=tk.RAISED).grid(row=4, column=0, rowspan=5, padx=10, pady=10)
+#image_2 = tk.PhotoImage(file="./img/file_example_PNG_500kB.png").subsample(3, 3)
+#tk.Label(window, image=image_2, relief=tk.RAISED).grid(row=4, column=1, rowspan=5, padx=10, pady=10)
+#image_3 = tk.PhotoImage(file="./img/file_example_PNG_500kB.png").subsample(3, 3)
+#tk.Label(window, image=image_3, relief=tk.RAISED).grid(row=8, column=0, rowspan=5, padx=10, pady=10)
+
+#tk.Label(window, text="D1 Computation:",).grid(row=2, column=0, padx=5, pady=5, sticky=tk.E)
+#default_risk_free = StringVar(window, value='5.00%')
+#name = ttk.Entry(window, textvariable=default_risk_free)
+#name.grid(row=2, column=1, padx=5, pady=5, ipadx=5)
+
+#tk.Label(window, text="D2 Computation:",).grid(row=3, column=0, padx=5, pady=5, sticky=tk.E)
+#default_risk_free = StringVar(window, value='5.00%')
+#name = ttk.Entry(window, textvariable=default_risk_free)
+#name.grid(row=3, column=1, padx=5, pady=5, ipadx=5)
+
+#tk.Label(window, text="Vega:",).grid(row=5, column=4, padx=5, pady=5, sticky=tk.E)
+#default_vega = StringVar(window, value='5.00%')
+#name_vega = ttk.Entry(window, textvariable=default_vega)
+#name_vega.grid(row=5, column=4, padx=5, pady=5, ipadx=5)
+
+
+#tk.Label(window, text="Step 2: Stock Data Calc", font=("Helvetica", 20, "bold")).grid(row=4, column=0, padx=5, pady=5, sticky=tk.E, columnspan=3)
+#tk.Label(window, text="Standard Deviation:",).grid(row=5, column=1, padx=5, pady=5, sticky=tk.E)
+#tk.Label(window, text="2.4%",).grid(row=5, column=2, padx=5, pady=5, sticky=tk.E)
+#tk.Label(window, text="Variance:",).grid(row=6, column=1, padx=5, pady=5, sticky=tk.E)
+#tk.Label(window, text="2.4%",).grid(row=6, column=2, padx=5, pady=5, sticky=tk.E)
 #image_1 = tk.PhotoImage(file="./img/file_example_PNG_500kB.png").subsample(3, 3)
 #tk.Label(window, image=image_1, relief=tk.RAISED).grid(row=5, column=0, rowspan=5, padx=10, pady=10)
 
 
-tk.Label(window, text="Step 3: Pricing Option", font=("Helvetica", 20, "bold")).grid(row=7, column=0, padx=5, pady=5, sticky=tk.E)
-tk.Label(window, text="Option Price:",).grid(row=8, column=1, padx=5, pady=5, sticky=tk.E)
-tk.Label(window, text="2.4%",).grid(row=8, column=2, padx=5, pady=5, sticky=tk.E)
-tk.Label(window, text="d_1:",).grid(row=9, column=1, padx=5, pady=5, sticky=tk.E)
-tk.Label(window, text="2.4%",).grid(row=9, column=2, padx=5, pady=5, sticky=tk.E)
-tk.Label(window, text="d_2:",).grid(row=10, column=1, padx=5, pady=5, sticky=tk.E)
-tk.Label(window, text="2.4%",).grid(row=10, column=2, padx=5, pady=5, sticky=tk.E)
+#tk.Label(window, text="Step 3: Pricing Option", font=("Helvetica", 20, "bold")).grid(row=7, column=0, padx=5, pady=5, sticky=tk.E)
+#tk.Label(window, text="Option Price:",).grid(row=8, column=1, padx=5, pady=5, sticky=tk.E)
+#tk.Label(window, text="2.4%",).grid(row=8, column=2, padx=5, pady=5, sticky=tk.E)
+#tk.Label(window, text="d_1:",).grid(row=9, column=1, padx=5, pady=5, sticky=tk.E)
+#tk.Label(window, text="2.4%",).grid(row=9, column=2, padx=5, pady=5, sticky=tk.E)
+#tk.Label(window, text="d_2:",).grid(row=10, column=1, padx=5, pady=5, sticky=tk.E)
+#tk.Label(window, text="2.4%",).grid(row=10, column=2, padx=5, pady=5, sticky=tk.E)
 
-tk.Label(window, text="Delta:",).grid(row=8, column=3, padx=5, pady=5, sticky=tk.E)
-tk.Label(window, text="2.4%",).grid(row=8, column=4, padx=5, pady=5, sticky=tk.E)
-tk.Label(window, text="Vega:",).grid(row=9, column=3, padx=5, pady=5, sticky=tk.E)
-tk.Label(window, text="2.4%",).grid(row=9, column=4, padx=5, pady=5, sticky=tk.E)
-tk.Label(window, text="Gamma:",).grid(row=10, column=3, padx=5, pady=5, sticky=tk.E)
-tk.Label(window, text="2.4%",).grid(row=10, column=4, padx=5, pady=5, sticky=tk.E)
+#tk.Label(window, text="Delta:",).grid(row=8, column=3, padx=5, pady=5, sticky=tk.E)
+#tk.Label(window, text="2.4%",).grid(row=8, column=4, padx=5, pady=5, sticky=tk.E)
+#tk.Label(window, text="Vega:",).grid(row=9, column=3, padx=5, pady=5, sticky=tk.E)
+#tk.Label(window, text="2.4%",).grid(row=9, column=4, padx=5, pady=5, sticky=tk.E)
+#tk.Label(window, text="Gamma:",).grid(row=10, column=3, padx=5, pady=5, sticky=tk.E)
+#tk.Label(window, text="2.4%",).grid(row=10, column=4, padx=5, pady=5, sticky=tk.E)
 #tk.Label(window, text="d_1:",).grid(row=11, column=3, padx=5, pady=5, sticky=tk.E)
 #tk.Label(window, text="2.4%",).grid(row=11, column=4, padx=5, pady=5, sticky=tk.E)
 #tk.Label(window, text="d_2:",).grid(row=12, column=3, padx=5, pady=5, sticky=tk.E)
@@ -74,12 +155,11 @@ tk.Label(window, text="2.4%",).grid(row=10, column=4, padx=5, pady=5, sticky=tk.
 #tk.Label(window, text="d_2:",).grid(row=13, column=3, padx=5, pady=5, sticky=tk.E)
 #tk.Label(window, text="2.4%",).grid(row=13, column=4, padx=5, pady=5, sticky=tk.E)
 
-image_1 = tk.PhotoImage(file="./img/file_example_PNG_500kB.png").subsample(3, 3)
-tk.Label(window, image=image_1, relief=tk.RAISED).grid(row=8, column=5, rowspan=5, padx=10, pady=10)
 
-tk.Label(window, text="Step 4: Charting Sensitivies", font=("Helvetica", 20, "bold")).grid(row=11, column=0, padx=5, pady=5, sticky=tk.E)
-image_2 = tk.PhotoImage(file="./img/file_example_PNG_500kB.png").subsample(3, 3)
-tk.Label(window, image=image_2, relief=tk.RAISED).grid(row=12, column=1, rowspan=5, padx=10, pady=10)
+
+#tk.Label(window, text="Step 4: Charting Sensitivies", font=("Helvetica", 20, "bold")).grid(row=11, column=0, padx=5, pady=5, sticky=tk.E)
+#image_2 = tk.PhotoImage(file="./img/file_example_PNG_500kB.png").subsample(3, 3)
+#tk.Label(window, image=image_2, relief=tk.RAISED).grid(row=12, column=1, rowspan=5, padx=10, pady=10)
 
 #image_1 = tk.PhotoImage(file="./img/file_example_PNG_500kB.png").subsample(2, 2)
 #image_2 = tk.PhotoImage(file="./img/file_example_PNG_500kB.png").subsample(2, 2)
@@ -95,7 +175,7 @@ tk.Label(window, image=image_2, relief=tk.RAISED).grid(row=12, column=1, rowspan
 
 
 
-window.mainloop()
+#window.mainloop()
 
 """
 pw = ttk.PanedWindow(orient=tk.HORIZONTAL)
