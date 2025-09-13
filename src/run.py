@@ -18,32 +18,6 @@ DEFAULT_STRIKE = 100.00
 
 print("\nOption Pricing Tool\n")
 
-"""
-print("The option type is set to: " + str(DEFAULT_OPTION_TYPE))
-default_option = input("Press y to proceed, any other key to change the option type: ")
-if(default_option == "y"):
-    DEFAULT_OPTION_TYPE = "put"
-    print("The option type has been updated to: " + str(DEFAULT_OPTION_TYPE))
-
-print("\nThe risk free rate is set as: 5.00%")
-default_risk_free = input("Press y to proceed, any key to change the risk free rate: ")
-if(default_risk_free != "y"):
-    print("\tUpdating the risk free rate")
-    print("\tEnter 0.04 for 4.00%")
-    DEFAULT_RISK_FREE = input("\tRisk Free Rate: ")
-
-print("\nThe option expiration is set to: " + str(DEFAULT_TTE) + " year")
-default_expiration = input("Press y to proceed, any other key to update option expiration: ")
-if(default_expiration != "y"):
-    print("\tUpdating the option expiration")
-    print("\tExample, enter 1.0 for one year")
-    DEFAULT_TTE = input("Option expiration: ")
-print("\nThe stock ticker is set to : " + DEFAULT_STOCK)
-
-aapl = Stock(DEFAULT_STOCK)
-#print(aapl)
-"""
-
 #print("|       Default paramters            |")
 #print("| ================================== |")
 #print("| Option Type    | " + str(DEFAULT_OPTION_TYPE))
@@ -55,115 +29,24 @@ aapl = Stock(DEFAULT_STOCK)
 #print("| Ticker         | " + str(DEFAULT_STOCK))
 #print(" ==================================")
 
-print("PARAMETERS")
-print("Underlying Ticker: \033[1m" + str(DEFAULT_STOCK) + "\033[0m")
-print("Option type: \033[1m" + str(DEFAULT_OPTION_TYPE) + "\033[0m")
-print("Expiration: \033[1m" + str(DEFAULT_TTE) + "\033[0m")
-print("Risk Free Rate: \033[1m" + str(DEFAULT_RISK_FREE) + "\033[0m")
-
+# Run the calculations
 aapl = Stock("AAPL")
-
 pretty_sd = (aapl.get_sigma() * 100.00)
 pretty_var = (aapl.get_variance() * 100.00)
-print("\nStandard Deviation: \033[1m%.2f%%\033[0m" % pretty_sd)
-print("Variance: \033[1m%.2f%%\033[0m" % pretty_var)
-
 option = Option(aapl, DEFAULT_STRIKE, DEFAULT_TTE, type=DEFAULT_OPTION_TYPE)
-
 d_1 = option.compute_d_1(DEFAULT_RISK_FREE, aapl.get_close_prices()[0])
 d_2 = option.compute_d_2(DEFAULT_RISK_FREE, aapl.get_close_prices()[0])
 option_price = option.compute_price(DEFAULT_RISK_FREE, aapl.get_close_prices()[0])
 delta = Option.compute_delta(option)
 vega = Option.compute_vega(option, aapl.get_close_prices()[0])
 gamma = Option.compute_gamma(option, aapl.get_close_prices()[0])
-print("\nd_1: \033[1m%.4f\033[0m" % d_1)
-print("d_2: \033[1m%.4f\033[0m" % d_2)
-print("Option price: \033[1m%.4f\033[0m" % option_price)
-print("Delta: \033[1m%.4f\033[0m" % delta)
-print("Vega: \033[1m%.4f\033[0m" % vega)
-print("Gamma: \033[1m%.4f\033[0m" % gamma)
 
-"""
-print("\n| ================================== | ================================== |")
-print("|       Default paramters           |            Stock Data              |")
-print("| ==================================+================================== |")
-print("| Option Type    | " + str(DEFAULT_OPTION_TYPE) + "             | Date Range     | " + str(aapl.get_sigma()))
-print(" -----------------------------------+------------------------------------ |")
-print("| Risk Free Rate | " + str(DEFAULT_RISK_FREE) + " | 52-week range ")
-print(" ------------------------------------------------------------------------ |")
-print("| Expiration     | " + str(DEFAULT_TTE) + " | Standard Deviation ")
-"""
+print("Underlying Ticker: \033[1m" + str(DEFAULT_STOCK) + "\033[0m     |", "Standard Deviation: \033[1m%.2f%%\033[0m  |" % pretty_sd, "Option price: \033[1m%.4f\033[0m" % option_price)
+print("Option type: \033[1m" + str(DEFAULT_OPTION_TYPE) + "\033[0m           |", "Variance: \033[1m%.2f%%\033[0m            |" % pretty_var, "Delta: \033[1m%.4f\033[0m" % delta)
+print("Expiration: \033[1m" + str(DEFAULT_TTE) + "\033[0m             |", "d_1: \033[1m%.4f\033[0m               |" % d_1, "Vega: \033[1m%.4f\033[0m" % vega)
+print("Risk Free Rate: \033[1m" + str(DEFAULT_RISK_FREE) + "\033[0m        |", "d_2: \033[1m%.4f\033[0m               |" % d_2, "Gamma: \033[1m%.4f\033[0m" % gamma)
 
-
-#tk.Label(window, text="D1 Value:",).grid(row=1, column=2, padx=5, pady=5, sticky=tk.E)
-#d1_value = StringVar(window, value='5.00%')
-#name_d1_value = ttk.Entry(window, textvariable=d1_value)
-#name_d1_value.grid(row=1, column=3, padx=5, pady=5, ipadx=5)
-
-#tk.Label(window, text="D2 Value:",).grid(row=2, column=2, padx=5, pady=5, sticky=tk.E)
-#d2_value = StringVar(window, value='5.00%')
-#name_d2_value = ttk.Entry(window, textvariable=d2_value)
-#name_d2_value.grid(row=2, column=3, padx=5, pady=5, ipadx=5)
-
-#tk.Label(window, text="Vega:",).grid(row=0, column=4, padx=5, pady=5, sticky=tk.E)
-#vega_value = StringVar(window, value='5.00%')
-#name_vega_value = ttk.Entry(window, textvariable=vega_value)
-#name_vega_value.grid(row=0, column=5, padx=5, pady=5, ipadx=5)
-
-#image_1 = tk.PhotoImage(file="./img/file_example_PNG_500kB.png").subsample(3, 3)
-#tk.Label(window, image=image_1, relief=tk.RAISED).grid(row=4, column=0, rowspan=5, padx=10, pady=10)
-#image_2 = tk.PhotoImage(file="./img/file_example_PNG_500kB.png").subsample(3, 3)
-#tk.Label(window, image=image_2, relief=tk.RAISED).grid(row=4, column=1, rowspan=5, padx=10, pady=10)
-#image_3 = tk.PhotoImage(file="./img/file_example_PNG_500kB.png").subsample(3, 3)
-#tk.Label(window, image=image_3, relief=tk.RAISED).grid(row=8, column=0, rowspan=5, padx=10, pady=10)
-
-#tk.Label(window, text="D1 Computation:",).grid(row=2, column=0, padx=5, pady=5, sticky=tk.E)
-#default_risk_free = StringVar(window, value='5.00%')
-#name = ttk.Entry(window, textvariable=default_risk_free)
-#name.grid(row=2, column=1, padx=5, pady=5, ipadx=5)
-
-#tk.Label(window, text="D2 Computation:",).grid(row=3, column=0, padx=5, pady=5, sticky=tk.E)
-#default_risk_free = StringVar(window, value='5.00%')
-#name = ttk.Entry(window, textvariable=default_risk_free)
-#name.grid(row=3, column=1, padx=5, pady=5, ipadx=5)
-
-#tk.Label(window, text="Vega:",).grid(row=5, column=4, padx=5, pady=5, sticky=tk.E)
-#default_vega = StringVar(window, value='5.00%')
-#name_vega = ttk.Entry(window, textvariable=default_vega)
-#name_vega.grid(row=5, column=4, padx=5, pady=5, ipadx=5)
-
-
-#tk.Label(window, text="Step 2: Stock Data Calc", font=("Helvetica", 20, "bold")).grid(row=4, column=0, padx=5, pady=5, sticky=tk.E, columnspan=3)
-#tk.Label(window, text="Standard Deviation:",).grid(row=5, column=1, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="2.4%",).grid(row=5, column=2, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="Variance:",).grid(row=6, column=1, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="2.4%",).grid(row=6, column=2, padx=5, pady=5, sticky=tk.E)
-#image_1 = tk.PhotoImage(file="./img/file_example_PNG_500kB.png").subsample(3, 3)
-#tk.Label(window, image=image_1, relief=tk.RAISED).grid(row=5, column=0, rowspan=5, padx=10, pady=10)
-
-
-#tk.Label(window, text="Step 3: Pricing Option", font=("Helvetica", 20, "bold")).grid(row=7, column=0, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="Option Price:",).grid(row=8, column=1, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="2.4%",).grid(row=8, column=2, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="d_1:",).grid(row=9, column=1, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="2.4%",).grid(row=9, column=2, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="d_2:",).grid(row=10, column=1, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="2.4%",).grid(row=10, column=2, padx=5, pady=5, sticky=tk.E)
-
-#tk.Label(window, text="Delta:",).grid(row=8, column=3, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="2.4%",).grid(row=8, column=4, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="Vega:",).grid(row=9, column=3, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="2.4%",).grid(row=9, column=4, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="Gamma:",).grid(row=10, column=3, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="2.4%",).grid(row=10, column=4, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="d_1:",).grid(row=11, column=3, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="2.4%",).grid(row=11, column=4, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="d_2:",).grid(row=12, column=3, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="2.4%",).grid(row=12, column=4, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="d_2:",).grid(row=13, column=3, padx=5, pady=5, sticky=tk.E)
-#tk.Label(window, text="2.4%",).grid(row=13, column=4, padx=5, pady=5, sticky=tk.E)
-
-
+print("\nProgram closing.")
 
 #tk.Label(window, text="Step 4: Charting Sensitivies", font=("Helvetica", 20, "bold")).grid(row=11, column=0, padx=5, pady=5, sticky=tk.E)
 #image_2 = tk.PhotoImage(file="./img/file_example_PNG_500kB.png").subsample(3, 3)
@@ -186,41 +69,11 @@ print("| Expiration     | " + str(DEFAULT_TTE) + " | Standard Deviation ")
 #window.mainloop()
 
 """
-pw = ttk.PanedWindow(orient=tk.HORIZONTAL)
-left_list = tk.Listbox(window)
-left_list.pack(side=tk.LEFT)
-pw.add(left_list)
-right_list = tk.Listbox(window)
-right_list.pack(side=tk.LEFT)
-pw.add(right_list)
 
-stock_drop_down_label = tk.Label(text="Select stock")
-stock_drop_down_label.pack()
-left_list.insert(0, stock_drop_down_label)
 
-pw.pack(fill=tk.BOTH, expand=True)
 
-# Add select stock from dropdown
-#stock_drop_down_label = tk.Label(text="Select stock")
-#stock_drop_down_label.pack()
-stock_drop_down = StringVar(window)
-stock_drop_down.set(OPTIONS[0])
-w = OptionMenu(window, stock_drop_down, *OPTIONS)
-w.pack()
 
-button = tk.Button(
-    text="Click me!",
-    width=25,
-    height=5,
-    bg="blue",
-    fg="yellow",
-)
-button.pack()
 
-entry = tk.Entry(fg="yellow", bg="blue", width=50)
-entry.pack()
-
-window.mainloop()
 """
 
 
@@ -338,7 +191,7 @@ for item in final_price:
     option_prices.append(option_price)
     print("For stock price " + str(item) + ", Call is: " + str(option_price))
 
-fx, ax = plt.subplots()
+fig, ax = plt.subplots()
 ax.plot(final_price, option_prices)
 ax.set(xlabel='Stock Price', ylabel='Option Price',
        title='Option Price with respect to Price')
