@@ -40,44 +40,22 @@ option_price = option.compute_price(DEFAULT_RISK_FREE, aapl.get_close_prices()[0
 delta = Option.compute_delta(option)
 vega = Option.compute_vega(option, aapl.get_close_prices()[0])
 gamma = Option.compute_gamma(option, aapl.get_close_prices()[0])
+option_pnl = Option_PnL(option, DEFAULT_RISK_FREE)
+df = option_pnl.get_data_frame()
 
 print("Underlying Ticker: \033[1m" + str(DEFAULT_STOCK) + "\033[0m     |", "Standard Deviation: \033[1m%.2f%%\033[0m  |" % pretty_sd, "Option price: \033[1m%.4f\033[0m" % option_price)
 print("Option type: \033[1m" + str(DEFAULT_OPTION_TYPE) + "\033[0m           |", "Variance: \033[1m%.2f%%\033[0m            |" % pretty_var, "Delta: \033[1m%.4f\033[0m" % delta)
 print("Expiration: \033[1m" + str(DEFAULT_TTE) + "\033[0m             |", "d_1: \033[1m%.4f\033[0m               |" % d_1, "Vega: \033[1m%.4f\033[0m" % vega)
 print("Risk Free Rate: \033[1m" + str(DEFAULT_RISK_FREE) + "\033[0m        |", "d_2: \033[1m%.4f\033[0m               |" % d_2, "Gamma: \033[1m%.4f\033[0m" % gamma)
 
+fig, ax = plt.subplots()
+ax.plot(df["final_stock_prices"], df["option_prices"])
+ax.set(xlabel='Stock Price', ylabel='Option Price',
+       title='Option Price with respect to Price')
+ax.grid()
+plt.show()
+
 print("\nProgram closing.")
-
-#tk.Label(window, text="Step 4: Charting Sensitivies", font=("Helvetica", 20, "bold")).grid(row=11, column=0, padx=5, pady=5, sticky=tk.E)
-#image_2 = tk.PhotoImage(file="./img/file_example_PNG_500kB.png").subsample(3, 3)
-#tk.Label(window, image=image_2, relief=tk.RAISED).grid(row=12, column=1, rowspan=5, padx=10, pady=10)
-
-#image_1 = tk.PhotoImage(file="./img/file_example_PNG_500kB.png").subsample(2, 2)
-#image_2 = tk.PhotoImage(file="./img/file_example_PNG_500kB.png").subsample(2, 2)
-#tk.Label(window, image=image_1, relief=tk.RAISED).grid(row=0, column=3, rowspan=5, padx=10, pady=10)
-#tk.Label(window, image=image_1, relief=tk.RAISED).grid(row=8, column=3, rowspan=5, padx=10, pady=10)
-
-#tk.Label(window, text="Risk Free Rate:",).grid(row=0, column=3, padx=5, pady=5, sticky=tk.E)
-#name = ttk.Entry(window)
-#name.grid(row=1, column=3, padx=5, pady=5, ipadx=5)
-
-# Gender field
-
-
-
-
-#window.mainloop()
-
-"""
-
-
-
-
-
-"""
-
-
-
 
 """
 risk_free = 0.05

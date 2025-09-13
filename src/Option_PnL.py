@@ -14,18 +14,13 @@ class Option_PnL(object):
         step_down = (option.getStrike() - low_price_down) / 100.00
         low_prices = np.arange(low_price_down, option.getStrike(), step_down)
         all_prices = np.concatenate([low_prices, up_prices])
-        option_prices = np.zeros(shape=(len(all_prices)))
-        #print(option_prices)
-        #print(all_prices)
-        self.df = pd.DataFrame({
-            "final_stock_prices": all_prices
-        })
-        print(self.df)
+        self.df = pd.DataFrame({ "final_stock_prices": all_prices })
+        #print(self.df)
         # Compute options prices on the basis of prices
         self.compute_option_prices(risk_free)
-        # Compute options greeks on the basis of prices
-        #self.compute_option_greeks()
-        # Generate charts on the basis of prices
+
+    def get_data_frame(self):
+        return self.df
 
     def compute_option_prices(self, risk_free):
         option_prices = np.zeros(shape=(len(self.df["final_stock_prices"])))
