@@ -25,6 +25,7 @@ class Option(object):
         self.d1 *= self.time_to_exp
         self.d1 += math.log(current_stock_price / self.strike)
         self.d1 /= (self.sd * math.sqrt(self.time_to_exp))
+        return self.d1
 
     def compute_d_2(self, risk_free, current_stock_price):
         self.d2 = self.variance / 2
@@ -32,6 +33,7 @@ class Option(object):
         self.d2 *= self.time_to_exp
         self.d2 += math.log(current_stock_price / self.strike)
         self.d2 /= (self.sd * math.sqrt(self.time_to_exp))
+        return self.d2
 
     # Getters
     def getSD(self): 

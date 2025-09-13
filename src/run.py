@@ -14,9 +14,11 @@ DEFAULT_RISK_FREE = 0.05
 DEFAULT_TTE = 1.0
 DEFAULT_OPTION_TYPE = "call"
 DEFAULT_STOCK = "AAPL"
+DEFAULT_STRIKE = 100.00
 
 print("\nOption Pricing Tool\n")
 
+"""
 print("The option type is set to: " + str(DEFAULT_OPTION_TYPE))
 default_option = input("Press y to proceed, any other key to change the option type: ")
 if(default_option == "y"):
@@ -29,63 +31,69 @@ if(default_risk_free != "y"):
     print("\tUpdating the risk free rate")
     print("\tEnter 0.04 for 4.00%")
     DEFAULT_RISK_FREE = input("\tRisk Free Rate: ")
+
 print("\nThe option expiration is set to: " + str(DEFAULT_TTE) + " year")
-default_expiration = input("Press y to proceed, any other key to update option expiration")
+default_expiration = input("Press y to proceed, any other key to update option expiration: ")
 if(default_expiration != "y"):
     print("\tUpdating the option expiration")
-    print("\tEnter on year as 1.0")
+    print("\tExample, enter 1.0 for one year")
     DEFAULT_TTE = input("Option expiration: ")
 print("\nThe stock ticker is set to : " + DEFAULT_STOCK)
 
 aapl = Stock(DEFAULT_STOCK)
-print(aapl)
+#print(aapl)
+"""
 
+#print("|       Default paramters            |")
+#print("| ================================== |")
+#print("| Option Type    | " + str(DEFAULT_OPTION_TYPE))
+#print(" ----------------------------------")
+#print("| Risk Free Rate | " + str(DEFAULT_RISK_FREE))
+#print(" ----------------------------------")
+#print("| Expiration     | " + str(DEFAULT_TTE))
+#print(" ----------------------------------")
+#print("| Ticker         | " + str(DEFAULT_STOCK))
+#print(" ==================================")
 
-#select_stock = tk.Label(window, text="Select Stock:")
-#select_stock.pack()
+print("PARAMETERS")
+print("Underlying Ticker: \033[1m" + str(DEFAULT_STOCK) + "\033[0m")
+print("Option type: \033[1m" + str(DEFAULT_OPTION_TYPE) + "\033[0m")
+print("Expiration: \033[1m" + str(DEFAULT_TTE) + "\033[0m")
+print("Risk Free Rate: \033[1m" + str(DEFAULT_RISK_FREE) + "\033[0m")
 
-#add_label("Select Stock")
-#gender = ttk.Combobox(window, values=OPTIONS, state="readonly")
-#gender.pack()
+aapl = Stock("AAPL")
 
-#a = add_label_and_val("Risk Free Rate", "5.00%")
-#a.pack()
-#add_label_and_val("Standard Deviation", "5.00%")
+pretty_sd = (aapl.get_sigma() * 100.00)
+pretty_var = (aapl.get_variance() * 100.00)
+print("\nStandard Deviation: \033[1m%.2f%%\033[0m" % pretty_sd)
+print("Variance: \033[1m%.2f%%\033[0m" % pretty_var)
 
-#label = tk.Frame(window, bg='wheat')  # Bg to show label size on window
-#label.pack(padx=100, pady=30)
-#tk.Label(window, text="Step 1: Set Parameters", font=("Helvetica", 20, "bold")).grid(row=0, column=0, padx=5, pady=5, sticky=tk.E, columnspan=3)
+option = Option(aapl, DEFAULT_STRIKE, DEFAULT_TTE, type=DEFAULT_OPTION_TYPE)
 
-#tk.Label(window, text="Select Stock:",).grid(row=1, column=1, padx=5, pady=5, sticky=tk.E)
-#gender = ttk.Combobox(window, values=OPTIONS, state="readonly")
-#gender.grid(row=1, column=2, padx=5, pady=5)
+d_1 = option.compute_d_1(DEFAULT_RISK_FREE, aapl.get_close_prices()[0])
+d_2 = option.compute_d_2(DEFAULT_RISK_FREE, aapl.get_close_prices()[0])
+option_price = option.compute_price(DEFAULT_RISK_FREE, aapl.get_close_prices()[0])
+delta = Option.compute_delta(option)
+vega = Option.compute_vega(option, aapl.get_close_prices()[0])
+gamma = Option.compute_gamma(option, aapl.get_close_prices()[0])
+print("\nd_1: \033[1m%.4f\033[0m" % d_1)
+print("d_2: \033[1m%.4f\033[0m" % d_2)
+print("Option price: \033[1m%.4f\033[0m" % option_price)
+print("Delta: \033[1m%.4f\033[0m" % delta)
+print("Vega: \033[1m%.4f\033[0m" % vega)
+print("Gamma: \033[1m%.4f\033[0m" % gamma)
 
-#tk.Label(window, text="Risk Free Rate:",).grid(row=1, column=3, padx=5, pady=5, sticky=tk.E)
-#default_risk_free = StringVar(window, value='5.00%')
-#name = ttk.Entry(window, textvariable=default_risk_free)
-#name.grid(row=1, column=4, padx=5, pady=5, ipadx=5)
+"""
+print("\n| ================================== | ================================== |")
+print("|       Default paramters           |            Stock Data              |")
+print("| ==================================+================================== |")
+print("| Option Type    | " + str(DEFAULT_OPTION_TYPE) + "             | Date Range     | " + str(aapl.get_sigma()))
+print(" -----------------------------------+------------------------------------ |")
+print("| Risk Free Rate | " + str(DEFAULT_RISK_FREE) + " | 52-week range ")
+print(" ------------------------------------------------------------------------ |")
+print("| Expiration     | " + str(DEFAULT_TTE) + " | Standard Deviation ")
+"""
 
-#tk.Label(window, text="Option Type:",).grid(row=2, column=1, padx=5, pady=5, sticky=tk.E)
-#optionTypeView = ttk.Combobox(window, values=["Call", "Put"], state="readonly")
-#optionTypeView.grid(row=2, column=2, padx=5, pady=5)
-
-#tk.Label(window, text="Time to expiration:",).grid(row=2, column=3, padx=5, pady=5, sticky=tk.E)
-#default_exp = StringVar(window, value='1.00')
-#tte = ttk.Entry(window, textvariable=default_exp)
-#tte.grid(row=2, column=4, padx=5, pady=5, ipadx=5)
-
-#submit = ttk.Button(window, text="Calculate")
-#submit.grid(row=3, column=4, padx=5, pady=5, sticky=tk.E)
-
-#tk.Label(window, text="Risk Free Rate:",).grid(row=0, column=0, padx=5, pady=5, sticky=tk.E)
-#default_risk_free = StringVar(window, value='5.00%')
-#name = ttk.Entry(window, textvariable=default_risk_free)
-#name.grid(row=0, column=1, padx=5, pady=5, ipadx=5)
-
-#tk.Label(window, text="Option Price:",).grid(row=0, column=2, padx=5, pady=5, sticky=tk.E)
-#option_price_value = StringVar(window, value='5.00%')
-#name_option_value = ttk.Entry(window, textvariable=option_price_value)
-#name_option_value.grid(row=0, column=3, padx=5, pady=5, ipadx=5)
 
 #tk.Label(window, text="D1 Value:",).grid(row=1, column=2, padx=5, pady=5, sticky=tk.E)
 #d1_value = StringVar(window, value='5.00%')
