@@ -7,9 +7,9 @@ This tool allows you to price call and put option using the black-scholes merton
 
 ## How It's Made:
 
-**Tech used:** HTML, CSS, JavaScript, Framework of choice
+**Tech used:** Pandas, MatplotLib, Numpy, and Scipy
 
-Here's where you can go to town on how you actually built this thing. Write as much as you can here, it's totally fine if it's not too much just make sure you write *something*. If you don't have too much experience on your resume working on the front end that's totally fine. This is where you can really show off your passion and make up for that ten fold.
+Classes were used to make this project useful for those implementing more complex Portfolio analysis tools in Python. The Stock class represents an abstraction for historical data, including therefore all abstraction based on data such as variance. On the other hand, the Option class focuses on the contractual nature of the deriviative, while Option_PnL focuses on evaluating the sentsitivity of the derivative (greeks) and the price of the option given a series of final stock prices with +/- 3 sigma.
 
 ## Optimizations
 *(optional)*
