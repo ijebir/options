@@ -9,14 +9,15 @@ This tool allows you to price call and put option using the black-scholes merton
 
 Classes were used to make this project useful for those implementing more complex Portfolio analysis tools in Python. The Stock class represents an abstraction for historical data, including therefore all abstraction based on data such as variance. On the other hand, the Option class focuses on the contractual nature of the deriviative, while Option_PnL focuses on evaluating the sentsitivity of the derivative (greeks) and the price of the option given a series of final stock prices with +/- 3 sigma.
 
-## Optimizations
-*(optional)*
+## Formulae Used
 
-You don't have to include this section but interviewers *love* that you can not only deliver a final product that looks great but also functions efficiently. Did you write something then refactor it later and the result was 5x faster than the original implementation? Did you cache your assets? Things that you write in this section are **GREAT** to bring up in interviews and you can use this section as reference when studying for technical interviews!
+**d1**
 
-## Lessons Learned:
+**d2**
 
-The Black-Scholes Merton (BSM) model represents a basic method for estimating an option's price, and more interesting volatility models could be interesting to incorporate into this tool.
+## Model Limitations:
+
+The Black-Scholes Merton (BSM) model represents a basic method for estimating an option's price, and more interesting volatility models could be implemnted in the Option class.
 
 ## Possible Future Updates:
 Below are some of the changes that could make this project highly useful for Risk programmers:
