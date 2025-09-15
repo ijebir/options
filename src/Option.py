@@ -3,15 +3,6 @@ from scipy.stats import norm
 
 class Option(object):
 
-    """
-    def __init__(self, sd, strike, time_to_exp, type="call"):
-        self.type = type
-        self.sd = sd
-        self.strike = strike
-        self.variance = math.pow(self.sd, 2)
-        self.time_to_exp = time_to_exp
-    """
-
     def __init__(self, stock, strike, time_to_exp, type="call"):
         self.type = type
         self.time_to_exp = time_to_exp
