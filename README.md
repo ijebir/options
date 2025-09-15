@@ -5,7 +5,7 @@ This tool allows you to price call and put option using the black-scholes merton
 
 ## Class Architecture
 
-**Dependencies** Pandas, MatplotLib, Numpy, and Scipy
+**Dependencies** pandas, matplotLib, numpy, and scipy
 
 Classes were used to make this project useful for those implementing more complex Portfolio analysis tools in Python. The Stock class represents an abstraction for historical data, including therefore all abstraction based on data such as variance. On the other hand, the Option class focuses on the contractual nature of the deriviative, while Option_PnL focuses on evaluating the sentsitivity of the derivative (greeks) and the price of the option given a series of final stock prices with +/- 3 sigma.
 
@@ -16,13 +16,15 @@ You don't have to include this section but interviewers *love* that you can not 
 
 ## Lessons Learned:
 
-No matter what your experience level, being an engineer means continuously learning. Every time you build something you always have those *whoa this is awesome* or *wow I actually did it!* moments. This is where you should share those moments! Recruiters and interviewers love to see that you're self-aware and passionate about growing.
+The Black-Scholes Merton (BSM) model represents a basic method for estimating an option's price, and more interesting volatility models could be interesting to incorporate into this tool.
 
-## Examples:
-Take a look at these couple examples that I have in my own portfolio:
+## Possible Future Updates:
+Below are some of the changes that could make this project highly useful for Risk programmers:
 
-**Palettable:** https://github.com/alecortega/palettable
+**Automated Historical data:** Using a direct data source instead of csv.
 
-**Twitter Battle:** https://github.com/alecortega/twitter-battle
+**Managing Option Type:** Differentiation between European and American options.
 
-**Patch Panel:** https://github.com/alecortega/patch-panel
+**Dividends:** Adding a system for incorporaing expected dividend payments
+
+**More Greeks:** Adding calculations of both Rho and Theta
