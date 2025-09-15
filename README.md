@@ -11,9 +11,11 @@ Classes were used to make this project useful for those implementing more comple
 
 ## Formulae Used
 
-**d1**
+**d1 and d2 calculations**
+![alt tag](https://github.com/ijebir/options/blob/main/img/d1_d2.png)
 
-**d2**
+**Example of European Put formula undr BS**
+![alt tag](https://github.com/ijebir/options/blob/main/img/euro_put_bs.png)
 
 ## Model Limitations:
 
