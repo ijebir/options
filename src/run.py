@@ -48,12 +48,33 @@ print("Option type: \033[1m" + str(DEFAULT_OPTION_TYPE) + "\033[0m           |",
 print("Expiration: \033[1m" + str(DEFAULT_TTE) + "\033[0m             |", "d_1: \033[1m%.4f\033[0m               |" % d_1, "Vega: \033[1m%.4f\033[0m" % vega)
 print("Risk Free Rate: \033[1m" + str(DEFAULT_RISK_FREE) + "\033[0m        |", "d_2: \033[1m%.4f\033[0m               |" % d_2, "Gamma: \033[1m%.4f\033[0m" % gamma)
 
+"""
 fig, ax = plt.subplots()
 ax.plot(df["final_stock_prices"], df["option_prices"])
 ax.set(xlabel='Stock Price', ylabel='Option Price',
        title='Option Price with respect to Price')
 ax.grid()
 plt.show()
+"""
+
+fig, axs = plt.subplots(2, 2)
+axs[0, 0].plot(df["final_stock_prices"], df["option_prices"])
+axs[0, 0].set_title('Option Price with respect to Stock Price')
+axs[0, 1].plot(df["final_stock_prices"], df["delta_values"], 'tab:orange')
+axs[0, 1].set_title('Delta variation with respect to Stock Price')
+axs[1, 0].plot(df["final_stock_prices"], df["vega_values"], 'tab:green')
+axs[1, 0].set_title('Vega variation with respect to Stock Price')
+axs[1, 1].plot(df["final_stock_prices"], df["gamma_values"], 'tab:red')
+axs[1, 1].set_title('Gamma variation with respect to Stock Price')
+
+plt.show()
+
+#for ax in axs.flat:
+#    ax.set(xlabel='x-label', ylabel='y-label')
+
+# Hide x labels and tick labels for top plots and y ticks for right plots.
+#for ax in axs.flat:
+#    ax.label_outer()
 
 print("\nProgram closing.")
 
