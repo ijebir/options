@@ -3,7 +3,7 @@ This tool allows you to price call and put option using the black-scholes merton
 
 **Link to project:** http://recruiters-love-seeing-live-demos.com/
 
-![alt tag](http://placecorgi.com/1200/650)
+![alt tag](https://github.com/ijebir/options/blob/main/img/demo.png)
 
 ## How It's Made:
 
